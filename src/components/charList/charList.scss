@@ -1,0 +1,34 @@
+.charlist {
+   width: 650px;
+   margin-left: 300px;
+   &__cards {
+      margin-top: 53px;
+      display: grid;
+      grid-template-columns: repeat(3, 200px);
+      row-gap: 31px;
+      column-gap: 25px;
+
+   }
+   &__item {
+      width: 200px;
+      height: 318px;
+      background: #232222;
+      box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.25);
+   }
+   &__pic {
+      object-fit: cover;
+      width: 200px;
+      height: 200px;
+   }
+   &__name {
+      margin: 15px 0 0 15px;
+      font-weight: 700;
+      font-size: 22px;
+      color: #FFFFFF;
+   }
+   button {
+      width: 170px;
+      margin: 45px auto 0 auto;
+      display: block;
+   }
+}

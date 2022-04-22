@@ -1,0 +1,40 @@
+* {
+   font-family: 'Roboto Condensed', sans-serif;
+   margin: 0;
+   padding: 0;
+}
+.App {
+   position: relative;
+   .container {
+      width: 1140px;
+      margin: 0 auto;
+   }
+   
+   .button {
+      width: 101px;
+      height: 38px;
+/*       margin-top: 13px; */
+      background: #9F0013;
+      text-align: center;
+      font-size: 14px;
+      text-align: center;
+      color: #FFFFFF;
+      cursor: pointer;
+      border: none;
+   }
+   
+   .img__content {
+      width: 467px;
+      height: 372px;
+      object-fit: cover;
+      position: absolute;
+      bottom: -10px;
+      right: 230px;
+      z-index: -5;
+   }
+   .charcontent {
+      display: grid;
+      grid-template-columns: 650px 425px;
+      column-gap: 25px;
+   }
+}

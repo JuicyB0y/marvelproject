@@ -1,0 +1,26 @@
+.header {
+   margin-top: 50px;
+   display: flex;
+   justify-content: space-between;
+   &__title {
+      font-weight: 700;
+      font-size: 24px;
+      color: #000000;
+      &-red {
+         color: #9F0013;
+      }
+   }
+   &__links {
+      margin-right: 43px;
+      font-weight: 700;
+      font-size: 24px;
+      &-char {
+         text-decoration: none;
+         color: #000000;
+      }
+      &-comics {
+         text-decoration: none;
+         color: #9F0013;
+      }
+   }
+}
