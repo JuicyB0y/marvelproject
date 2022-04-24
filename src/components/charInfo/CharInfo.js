@@ -1,27 +1,73 @@
 import './charInfo.scss';
+import { useState, useEffect } from 'react';
+import MarvelService from '../../services/MarvelService';
+import setContent from '../../utils/setContent';
 
 import thumbnail from '../../resources/loki.jpg';
 
-const CharInfo = () => {
+const CharInfo = (props) => {
+
+   const [char, setChar] = useState([]);
+
+   const {getCharacter, clearError, setProcess} = MarvelService();
+
+   useEffect(() => {
+      updateChar();
+   }, [props.charId])
+
+   const updateChar = () => {
+      const {charId} = props;
+      if (!charId) 
+         return;
+      getCharacter(charId)
+         .then(onCharLoaded)
+         .then(setProcess('confirmed'))
+   }
+
+   const onCharLoaded = (char) => {
+      setChar(char);
+   }
+
    return (
       <aside className="charinfo">
+         {setContent(process, View, char)}
+      </aside>
+   )
+}
+
+const View = ({data}) => {
+   const {name, description, thumbnail, homepage, wiki, comics} = data;
+
+   let imgStyle = {'objectFit' : 'cover'};
+   if (thumbnail === 'http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg') {
+      imgStyle = {'objectFit' : 'contain'}
+   }
+
+   return (
+      <>
          <div className="charinfo__header">
-            <img src={thumbnail} alt="" className="charinfo__img" />
+            <img src={thumbnail} alt="" className="charinfo__img" style={imgStyle}/>
             <div className="charinfo__extra">
-               <h3 className="charinfo__name">LOKI</h3>
+               <h3 className="charinfo__name">{name}</h3>
                <button className="charinfo__home button">HOMEPAGE</button>
                <button className="charinfo__wiki button">WIKI</button>
             </div>
          </div>
-         <p className="charinfo__text">In Norse mythology, Loki is a god or jötunn (or both). Loki is the son of Fárbauti and Laufey, and the brother of Helblindi and Býleistr. By the jötunn Angrboða, Loki is the father of Hel, the wolf Fenrir, and the world serpent Jörmungandr. By Sigyn, Loki is the father of Nari and/or Narfi and with the stallion Svaðilfari as the father, Loki gave birth—in the form of a mare—to the eight-legged horse Sleipnir. In addition, Loki is referred to as the father of Váli in the Prose Edda.</p>
+         <p className="charinfo__text">{description}</p>
             <div className="charinfo__comics">Comics:</div>
             <ul className="charinfo__items">
-               <li className="charinfo__item">All-Winners Squad: Band of Heroes (2011) #3</li>
-               <li className="charinfo__item">Alpha Flight (1983) #50</li>
-               <li className="charinfo__item">Amazing Spider-Man (1999) #503</li>
-               <li className="charinfo__item">Amazing Spider-Man (1999) #504</li>
+            {comics.length > 0 ? null : 'There is no comics with such character'}
+               {
+                  comics.map((item, i) => {
+                     if (i > 9) return;
+                     return (
+                        <li key={i} className="charinfo__item">{item.name}</li>
+                     )
+                  })
+               }
+
             </ul>
-      </aside>
+      </>
    )
 }
 
